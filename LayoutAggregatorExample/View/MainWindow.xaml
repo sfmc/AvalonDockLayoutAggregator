@@ -1,0 +1,50 @@
+﻿<Window 
+    x:Class="LayoutAggregatorExample.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+    xmlns:local="clr-namespace:LayoutAggregatorExample.View"
+    Title="MainWindow"
+    Height="350" 
+    Width="525">
+    
+    <DockPanel>
+        
+        <ToolBarTray
+            DockPanel.Dock="Top">
+            <ToolBar>
+                <Button
+                    Content="Save Layout"
+                    Command="{Binding SaveWorkspaceLayoutCommand}">
+                </Button>
+                <Button
+                    Content="Load Layout"
+                    Command="{Binding LoadWorkspaceLayoutCommand}">
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        
+        <avalonDock:DockingManager
+            x:Name="dockManager"
+            AnchorablesSource="{Binding AnchorableVMs}"
+            DocumentsSource="{Binding DocumentVMs}">
+            <avalonDock:DockingManager.LayoutItemContainerStyleSelector>
+                <local:PanesStyleSelector>
+                    <local:PanesStyleSelector.AnchorableStyle>
+                        <Style TargetType="{x:Type avalonDock:LayoutAnchorableItem}">
+                            <Setter Property="Title" Value="{Binding Model.Title}"/>
+                            <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
+                        </Style>
+                    </local:PanesStyleSelector.AnchorableStyle>
+                    <local:PanesStyleSelector.DocumentStyle>
+                        <Style TargetType="{x:Type avalonDock:LayoutItem}">
+                            <Setter Property="Title" Value="{Binding Model.Title}"/>
+                            <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
+                        </Style>
+                    </local:PanesStyleSelector.DocumentStyle>
+                </local:PanesStyleSelector>
+            </avalonDock:DockingManager.LayoutItemContainerStyleSelector>
+        </avalonDock:DockingManager>
+    </DockPanel>
+    
+</Window>
